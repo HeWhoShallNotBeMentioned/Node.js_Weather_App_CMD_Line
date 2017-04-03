@@ -17,12 +17,12 @@ function getWeather(location) {
 	const readableQuery = location.replace('_', ' ');
 	//error handeling in case the url is malformed
 	try {
-	const request = http.get(`http://api.wunderground.com/api/${APIkey}/conditions/q/${location}.json`, 
+	const request = http.get(`http://api.wunderground.com/api/${APIkey}/conditions/q/${location}.json`,
 		(response) => {
 			if (response.statusCode === 200) {
 				 let body = "";
 		         response.on('data', (chunk) => {
-		           body += chunk;	
+		           body += chunk;
 		        });
 		         response.on('end', () => {
 		         	try {
@@ -33,7 +33,7 @@ function getWeather(location) {
 		         			//error for isf the location is not found
 		         			const queryError = new Error(`The location "${readableQuery}" was not found.`);
 		         			printError(queryError);
-		         		}	
+		         		}
 		         	} catch (error){
 		         		//Parse error
 		         		printError(error);
@@ -44,7 +44,7 @@ function getWeather(location) {
 		    	//statusCode Error
 		    	const statusCodeError = new Error (`There was an error getting the message for ${readableQuery}.
 		    	(${http.STATUS_CODES[response.statusCode]})`);
-		    	
+
 		    	printError(statusCodeError);
 		    }
 		}).on('error', (error) => {
@@ -53,7 +53,7 @@ function getWeather(location) {
 	} catch (error) {
 		//malformed URL error
 		printError(error);
-	}	
+	}
 }
 
 
